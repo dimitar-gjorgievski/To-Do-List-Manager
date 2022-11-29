@@ -44,9 +44,19 @@ def get_dir_path():
         #IF to-do directory doesn't exist
         if os.path.isdir(todo_path) == False:
 
-            #Make to-do directory
-            os.mkdir(todo_path)
-            color.pr_red("NOTICE: To-Do List directory created in 'Home' directory.")
+            #Input choice to create dir
+            color.pr_green("To-Do directory will be created in 'Home' directory. Confirm: (Y / N)")
+            choice = input ("Input: ")
+
+            #IF user decided to create dir
+            if choice.lower() == 'y':
+                
+                #Make to-do directory
+                os.mkdir(todo_path)
+                color.pr_red("NOTICE: To-Do directory created in 'Home' directory.")
+            
+            #ELSE, exit the function
+            else: exit()
 
         #Return to-do directory
         return todo_path
@@ -60,9 +70,19 @@ def get_dir_path():
         #IF to-do directory doesn't exist
         if os.path.isdir(docPath + "ToDo List\\") == False:
 
-            #Make to-do directory
-            os.mkdir(docPath + "ToDo List\\")
-            color.pr_red("\nNOTICE: To-Do List directory created in 'Documents' directory.\n")
+            #Input choice to create dir
+            color.pr_green("To-Do directory will be created in 'Documents' directory. Confirm: (Y / N)")
+            choice = input ("Input: ")
+
+            #IF user decided to create dir
+            if choice.lower() == 'y':
+
+                #Make to-do directory
+                os.mkdir(docPath + "ToDo List\\")
+                color.pr_red("\nNOTICE: To-Do List directory created in 'Documents' directory.\n")
+            
+            #ELSE, exit the function
+            else: exit()
 
         #Make variable with ToDo List directory
         fullPath = os.path.join(docPath, "ToDo List\\")
