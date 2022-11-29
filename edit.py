@@ -16,7 +16,7 @@ date_index = '4'
 
 #######################
 # Function name: edit
-# Date Revised : November 21, 2022
+# Date Revised : November 28, 2022
 # Description  : Allows the user to edit a specific
 #                tasks' description, priority, category, or due date.
 #######################
@@ -36,7 +36,7 @@ def edit(workbook):
     selection = input("Your Input: ")
 
     #IF valid input is selected
-    if selection != '' and int(selection) <= maxRow and int(selection) > 0:
+    if selection != '' and int(selection) < maxRow and int(selection) > 0:
 
         selection = int(selection) + 1
 

@@ -5,6 +5,23 @@ from os.path import expanduser, exists
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font
 
+######################
+# Program Name : util
+# Date Revised : November 28, 2022
+# Description  : This program is a collection of utility
+#                tools for the interaction of a to-do list.
+# 
+# Functions:
+#   get_dir_path
+#   get_workbook
+#   display row
+#   check_date
+#   get_categories
+#   display_categories
+#   cls
+#
+#######################
+
 #######################
 # Function name: get_dir_path
 # Date Revised : November 14, 2022

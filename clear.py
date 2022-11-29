@@ -2,12 +2,25 @@
 import color, util
 from read import read
 
+######################
+# Program Name : clear
+# Date Revised : November 28, 2022
+# Description  : This program allows the user to delete
+#                a single task item from the list, or to
+#                delete the entire list completely.
+# 
+# Functions:
+#   clear
+#   clear_all
+#
+#######################
+
 #Global Variables
 todo_dir = util.get_dir_path()
 
 #######################
 # Function name: clear
-# Date Revised : November 14, 2022
+# Date Revised : November 28, 2022
 # Description  : Allows user to clear specific task
 #                from the to-do list.
 #######################
@@ -15,6 +28,7 @@ def clear(workbook):
 
     #Local Variables
     worksheet = workbook.active
+    maxRow = worksheet.max_row
 
     #Clear Screen
     util.cls()
@@ -25,10 +39,9 @@ def clear(workbook):
     #Input task to delete
     color.pr_green("\nSelect row item to be deleted.")
     selection = input("Your Input: ")
-    maxRow = worksheet.max_row - 1
 
     #IF Valid index is entered
-    if (selection != '' and int(selection) <= maxRow and int(selection) > 0):
+    if (selection != '' and int(selection) < maxRow and int(selection) > 0):
 
         #Local Variables
         selection = int(selection) + 1

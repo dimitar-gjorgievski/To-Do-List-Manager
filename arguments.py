@@ -9,63 +9,70 @@ workbook = util.get_workbook()
 
 ######################
 # Program name : arg_func
-# Date Revised : November 25, 2022
+# Date Revised : November 28, 2022
 # Description  : Function that integrates individual
 #                command-line argument parsers to access
 #                and modify a to-do list.
 ####################### 
 def arg_func():
 
-    #Configure message
-    msg= "A command-line utility tool that allows the user to configure a To-Do list of items."
-
     #Create argument parser
-    parser = argparse.ArgumentParser(description = msg)
+    parser = argparse.ArgumentParser(add_help = False)
 
     #Add arguments to parser
-    parser.add_argument("-help", "--Help", help = "Help menu", action="store_true")
-    parser.add_argument("-add", "--Add", help = "Add item to list.")
-    parser.add_argument("-p", "--Priority", help = "")
-    parser.add_argument("-c", "--Category", help = "")
-    parser.add_argument("-d", "--Date", default = "None", help = "")
-    parser.add_argument("-r", "--Read", help = "Display the full To-Do list.", action="store_true")
-    parser.add_argument("-m", "--Menu", help = "Open interactive menu with all modification features included.", action="store_true")
-    parser.add_argument("-cl", "--Clear", help = "Open prompt to delete a single item in the list.", action="store_true")
-    parser.add_argument("-cla", "--Clear_all", help = "Open prompt to delete the entire To-Do list", action="store_true")
-    parser.add_argument("-e", "--Edit", help = "Open prompt to edit a specific item in the list. ", action="store_true")
+    parser.add_argument("-h", "--help", action="store_true")
+    parser.add_argument("-add")
+    parser.add_argument("-p", "--priority", default = "Low")
+    parser.add_argument("-c", "--category", default = "Other")
+    parser.add_argument("-d", "--date", default = "None")
+    parser.add_argument("-r", "--read", action="store_true")
+    parser.add_argument("-m", "--menu", action="store_true")
+    parser.add_argument("-cl", "--clear", action="store_true")
+    parser.add_argument("-cla", "--clearall", action="store_true")
+    parser.add_argument("-e", "--edit", action="store_true")
 
-
+    #Create arguments variable
     args = parser.parse_args()
 
+    #IF help arg is entered
+    if args.help:
 
+        #Display help message
+        print ("Usage: todo.py [-add <message>] [-p | --priority <priority>]\n \
+              [-c | --category <category>] [-d | --date <due date>]\n \
+              Standalone arguments:\n \
+              [-r | --read] [-m | --menu] [-cl | --clear] [-cla | --clearall]\n \
+              [-e | --edit]\n")
+        print ("\t add    \tAdd an item to the list\n \
+        read    \tDisplay current to-do list\n \
+        menu    \tEnter interactive menu\n \
+        clear   \tDelete an individual task from list\n \
+        clearall    \tDelete the entire list\n \
+        edit    \tEdit an indivudal task's attribute")
 
-    if args.Help:
-        print ("\t todo.py -add [ItemDescription] -p [Priority](Optional) -d [DueDate](Optional) -c [Category](Optional) - add a task \n \
-        todo.py -m   - Open interactive menu  \n \
-        todo.py -r   - Display full list \n \
-        todo.py -e   - Edit a specific task in list \n \
-        todo.py -cl  - Delete single task in list \n \
-        todo.py -cla - Delete entire to-do list")
+    #IF add arg is entered
+    if args.add:
 
-    if args.Add:
-        add.arg_add_item(args.Add, args.Priority, args.Category, args.Date, workbook)
+        #Call function to add item to task list
+        add.arg_add_item(args.add, args.priority, args.category, args.date, workbook)
 
-    if args.Read:
-        read.read(workbook)
+    #IF read arg is enetered, call func to display list
+    if args.read: read.read(workbook)
 
-    if args.Clear:
-        clear.clear(workbook)
+    #IF clear arg is entered, call func to clear item
+    if args.clear: clear.clear(workbook)
 
-    if args.Clear_all:
-        clear.clear_all(workbook)
+    #IF clear all arg entered, call func to clear list
+    if args.clearall: clear.clear_all(workbook)
 
-    if args.Edit:
-        edit.edit(workbook)
+    #IF edit arg is entered, call func to edit item
+    if args.edit: edit.edit(workbook)
     
-    if args.Menu:
+    #IF menu arg is entered
+    if args.menu:
 
+        #Display selection menu
         util.cls()
-
         color.pr_green("Choose a number from the menu options:")
         color.pr_purple(" 1. Add an Item. \n " +
         " 2. Mark Completed Item/s. \n " + 
@@ -75,41 +82,61 @@ def arg_func():
         " 6. Display High Priority Items. \n " +
         "-1. Quit.")
 
+        #Input selection
         choice = input("\n" + " Your Input: ")
 
+        #WHILE selection is not quit
         while (choice != '-1'):
             
-            if choice == '1':
-                add.menu_add_item(workbook) 
+            #IF add item is selected, call add func
+            if choice == '1': add.menu_add_item(workbook) 
 
-            elif choice == '2':
-                complete.mark_complete(workbook)
+            #ELIF item completion is selected, call completion func
+            elif choice == '2': complete.mark_complete(workbook)
 
+            #ELIF item deletion is selected
             elif choice == '3':
+
+                #Input deletion type
                 util.cls()
                 color.pr_green("What would you like to delete?")
                 color.pr_purple(" 1. A singular item.\n" + "  2. The entire list.\n" + " -1. Quit.\n")
                 deleteType = input("  Your Input: ")
 
+                #IF delete one item is selected
                 if(deleteType == '1'):
+
+                    #Call function to delete single task item
                     clear.clear(workbook)
+                
+                #ELIF delete list is selected
                 elif(deleteType == '2'):
+
+                    #Call function to clear to-do list
                     clear.clear_all(workbook)
+
+                #ELSE
                 else:
+
+                    #Display cancel message
                     color.pr_red("\nDeletion Cancelled.\n")
  
-            elif choice == '4':
-                edit.edit(workbook)               
+            #ELIF edit item is selected, call edit func
+            elif choice == '4': edit.edit(workbook)               
             
-            elif choice == '5':
-                read.read(workbook)
+            #ELIF read is selected, call display func
+            elif choice == '5': read.read(workbook)
 
-            elif choice == '6':
-                read.read_high_prio(workbook) 
+            #ELIF read high prio selected, call high prio func
+            elif choice == '6': read.read_high_prio(workbook) 
 
+            #ELSE 
             else:
+
+                #Display invalid input message
                 color.pr_red("ERROR: Invalid Input.\n")
             
+            #Display selection menu
             color.pr_green("Choose a number from the menu options:")
             color.pr_purple(" 1. Add an Item. \n " +
             " 2. Mark Completed Item/s. \n " + 
@@ -119,5 +146,6 @@ def arg_func():
             " 6. Display High Priority Items. \n " +
             "-1. Quit.")
             
+            #Input selection
             choice = input(" Your Input: ")
 

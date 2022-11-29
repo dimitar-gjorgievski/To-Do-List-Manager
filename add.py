@@ -5,7 +5,7 @@ import util
 
 ######################
 # Program Name : add
-# Date Revised : November 24, 2022
+# Date Revised : November 28, 2022
 # Description  : This program allows the user to add tasks to a to-do
 #                list either throguh command line arguments or a menu.
 # 
@@ -24,7 +24,7 @@ priority_col = "B"
 status_col = "C"
 category_col  = "D"
 description_col = "E"
-complete, incomplete, overdue = u'\u2713', u'\u25CB', '\u2613'
+complete, incomplete = u'\u2713', u'\u25CB'
 
 #######################
 # Function name: arg_add_item
@@ -37,19 +37,14 @@ def arg_add_item(list_desc, list_prio, list_categ, list_date, workbook):
     #Local Variables
     worksheet = workbook.active
     curr_row = worksheet.max_row + 1
-
-    ##### Executable Code #####
-
-    #Assign To-Do List item description to appropriate variable
     description = list_desc
+    priority = list_prio
+    date = list_date
+    status = incomplete
+    category = list_categ
 
-    #Set priority to low if no priority was entered
-    if list_prio is None: priority = "Low"
-
-    else:
-
-        #Assign priority to appropriate variable
-        priority = list_prio
+    #IF priority was entered
+    if priority != "None":
 
         #Format word capitalization
         first_letter = priority[0].upper()
@@ -80,11 +75,8 @@ def arg_add_item(list_desc, list_prio, list_categ, list_date, workbook):
             elif(priority == '3'):
                 priority = "High"
 
-    #Assign due date to appropriate variable
-    date = list_date
-
     #IF date was entered
-    if date is not None:
+    if date != "None":
 
         #WHILE (Entered date is invalid)
         while date != '-1' and not util.check_date(date):
@@ -94,33 +86,20 @@ def arg_add_item(list_desc, list_prio, list_categ, list_date, workbook):
             color.pr_green("Input a due date (MM/DD/YYYY) or '-1' to skip.")
             date = input(" Your Input: ")
 
-    #If (Task has no due date)
-    if date == '-1' or date is None:
-        
-        #Set appropriate due date and status
-        date = "None"
-        status = incomplete
+        #IF Due date exists
+        if date != '-1':
 
-    #ELSE
-    else:
+            #Convert due date string to date variable
+            date = datetime.strptime(date, "%m/%d/%Y").date()
 
-        #Convert due date string to date variable
-        date = datetime.strptime(date, "%m/%d/%Y").date()
+            #Assign date format
+            date = date.strftime("%Y-%m-%d")
 
-        #Assign appropriate task deadline status
-        status = incomplete if (date > today) else overdue
+        #ELSE Set date to none
+        else: date = "None"
 
-        #Assign date format
-        date = date.strftime("%Y-%m-%d")
-
-    #IF (No category was selected, set it to Other)
-    if list_categ is None: category = "Other"
-
-    #ELSE
-    else:
-
-        #Assign category variable
-        category = list_categ
+    #IF a category is selected
+    if category != "None":
 
         #Format category variable
         firstLetter = category[0].upper()
@@ -172,8 +151,7 @@ def menu_add_item(workbook):
     #Local Variables
     worksheet = workbook.active
     curr_row = worksheet.max_row + 1
-
-    ###### Executable Code ######
+    status = incomplete
 
     #Input task description
     util.cls()    
@@ -186,7 +164,7 @@ def menu_add_item(workbook):
     color.pr_purple("1. Low  \n 2. Medium  \n 3. High")
     priority = input(" Your Input: ")
 
-    #WHILE (Invalid priority is entered)
+    #WHILE Invalid priority is entered
     while priority not in ("1", "2", "3"):
 
         #Input priority level
@@ -208,7 +186,7 @@ def menu_add_item(workbook):
     util.display_categories()
     categoryIndex = input(" Your Input: ")
 
-    #WHILE Invalid category was selected
+    #WHILE Invalid category is selected
     while not categoryIndex.isnumeric() or int(categoryIndex) < 1 or int(categoryIndex) > 10:
         
         #Select category
@@ -224,7 +202,7 @@ def menu_add_item(workbook):
     color.pr_green("Input a due date (MM/DD/YYYY) or '-1' to skip.")
     date = input(" Your Input: ")
 
-    #WHILE (Entered date is invalid)
+    #WHILE Entered date is invalid
     while date != '-1' and not util.check_date(date):
 
         #Input due date
@@ -232,21 +210,14 @@ def menu_add_item(workbook):
         color.pr_green("Input a due date (MM/DD/YYYY) or '-1' to skip.")
         date = input(" Your Input: ")
 
-    #IF (Task has no due date)
-    if date == '-1':
+    #IF Task has no due date, set to None
+    if date == '-1': date = "None"
 
-        #Set appropriate due date and status
-        date = "None"
-        status = incomplete
-    
     #ELSE
     else:
         
         #Convert due date string to date variable
         date = datetime.strptime(date, "%m/%d/%Y").date()
-
-        #Set appropriate deadline status for due date
-        status = incomplete if(date > today) else overdue
 
         #Assign date format
         date = date.strftime("%Y-%m-%d")

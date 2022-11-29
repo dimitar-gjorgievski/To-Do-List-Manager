@@ -1,6 +1,18 @@
 #Imports
 import util
 
+######################
+# Program Name : read
+# Date Revised : November 28, 2022
+# Description  : This program allows the display of the 
+#                full task list, or only high priority tasks.
+# 
+# Functions:
+#   read
+#   read_high_prio
+#
+#######################
+
 #Global Variables
 complete, incomplete = u'\u2713', u'\u25CB'
 

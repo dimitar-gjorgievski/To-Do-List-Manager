@@ -4,7 +4,7 @@ from read import read
 
 #######################
 # Function name: mark_complete
-# Date Revised : November 30, 2022
+# Date Revised : November 28, 2022
 # Description  : Allows the user to mark an existing
 #                task as completed in the to-do list.
 #######################
@@ -18,12 +18,12 @@ def mark_complete(workbook):
     maxRow = worksheet.max_row
 
     #Display task list and select task to complete
-    read(workbook)   
+    read(workbook) 
     color.pr_green("\nWhich To-Do List Item would you like mark as complete?")
     selection = input("Your Input: ")
 
     #IF selection is valid
-    if selection != '' and selection <= maxRow and selection > 1:
+    if selection != '' and int(selection) < maxRow and int(selection) > 0:
 
         selection = int(selection) + 1
 
