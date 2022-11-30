@@ -1,6 +1,6 @@
 import os, sys
 import datetime
-import color
+import src.color as color
 from os.path import expanduser, exists
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font

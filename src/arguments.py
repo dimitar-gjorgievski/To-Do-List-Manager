@@ -1,15 +1,13 @@
 #Imports
 import argparse
-import color
-import util
-import clear, edit, read, add, complete
+from src import color, util, clear, edit, read, add, complete
 
 #Create or load workbook
 workbook = util.get_workbook()
 
 ######################
-# Program name : arg_func
-# Date Revised : November 28, 2022
+# Function name : arg_func
+# Date Revised : November 29, 2022
 # Description  : Function that integrates individual
 #                command-line argument parsers to access
 #                and modify a to-do list.

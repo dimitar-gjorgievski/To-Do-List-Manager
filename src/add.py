@@ -1,11 +1,10 @@
 #Imports
 from datetime import date, datetime
-import color
-import util
+from src import color, util
 
 ######################
 # Program Name : add
-# Date Revised : November 28, 2022
+# Date Revised : November 29, 2022
 # Description  : This program allows the user to add tasks to a to-do
 #                list either throguh command line arguments or a menu.
 # 
@@ -142,7 +141,7 @@ def arg_add_item(list_desc, list_prio, list_categ, list_date, workbook):
 
 ######################
 # Function Name: menu_add_item
-# Date Revised : November 24, 2022
+# Date Revised : November 29, 2022
 # Description  : This functions allows the user to add items
 #                to a to-do list through a menu selection interface.
 ####################### 
@@ -187,7 +186,7 @@ def menu_add_item(workbook):
     categoryIndex = input(" Your Input: ")
 
     #WHILE Invalid category is selected
-    while not categoryIndex.isnumeric() or int(categoryIndex) < 1 or int(categoryIndex) > 10:
+    while not categoryIndex.isnumeric() or int(categoryIndex) < 1 or int(categoryIndex) > 7:
         
         #Select category
         color.pr_red("\nInvalid Category Selected.\n")

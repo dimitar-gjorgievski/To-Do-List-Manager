@@ -1,6 +1,6 @@
 #Imports
-import color, util
-from read import read
+from src import color, util
+from src.read import read
 
 #######################
 # Function name: mark_complete

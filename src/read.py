@@ -1,9 +1,9 @@
 #Imports
-import util
+from src import util
 
 ######################
 # Program Name : read
-# Date Revised : November 28, 2022
+# Date Revised : November 29, 2022
 # Description  : This program allows the display of the 
 #                full task list, or only high priority tasks.
 # 

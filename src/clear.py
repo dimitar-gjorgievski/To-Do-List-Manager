@@ -1,10 +1,13 @@
 #Imports
-import color, util
-from read import read
+from src import color, util
+
+#import src.color as color
+#import src.util as util
+from src.read import read
 
 ######################
 # Program Name : clear
-# Date Revised : November 28, 2022
+# Date Revised : November 29, 2022
 # Description  : This program allows the user to delete
 #                a single task item from the list, or to
 #                delete the entire list completely.
