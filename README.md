@@ -1,5 +1,7 @@
-# Hangman
+# To-Do Task Manager
 To-Do Task Manager for Developers built in Python using Openpyxl
+
+![TaskIcon](https://raw.githubusercontent.com/dimitar-gjorgievski/To-Do-List-Manager/master/task-list.jpg)
 
 ## Prerequisites
 This project requires Python 3.
